@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Task Manager{% endblock %}
+
+{% block body %}
+    <div id="wrap">
+
+        <div class="container">
+            <h1>Search Task</h1>
+            {% include 'tasks/searchList/htmlComponents/_searchForm.html.twig' %}
+            {% include 'tasks/searchList/htmlComponents/_taskTable.html.twig' %}
+            {% include 'tasks/searchList/htmlComponents/_detailsPopup.html.twig' %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="{{ asset('js/tasks_show.js') }}"></script>
+    <script type="module" src="{{ asset('js/common_methods.js') }}"></script>
+{% endblock %}

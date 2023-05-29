@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add / Edit Task{% endblock %}
+
+{% block body %}
+    <div id="wrap">
+        <div class="container">
+            <h1>Add / Edit Task</h1>
+            {% include 'tasks/addEditTask/htmlComponents/_addTaskForm.html.twig' %}
+            {% include 'tasks/addEditTask/htmlComponents/_editTaskTable.html.twig' %}
+            {% include 'tasks/addEditTask/htmlComponents/_editPopup.html.twig' %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="{{ asset('js/tasks_rest.js') }}"></script>
+    <script type="module" src="{{ asset('js/common_methods.js') }}"></script>
+{% endblock %}
