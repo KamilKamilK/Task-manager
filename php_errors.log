@@ -1,6 +1,0 @@
-[17-May-2023 15:09:27 UTC] [critical] Error thrown while running command ""make:user"". Message: "There are no commands defined in the "make" namespace.
-
-You may be looking for a command provided by the "MakerBundle" which is currently not installed. Try running "composer require symfony/maker-bundle --dev"."
-[17-May-2023 21:01:06 UTC] 2023-05-17T21:01:06+00:00 [critical] Uncaught Error: syntax error, unexpected token "{"
-[28-May-2023 09:32:06 UTC] 2023-05-28T09:32:06+00:00 [info] User Deprecated: Method "Symfony\Component\EventDispatcher\EventSubscriberInterface::getSubscribedEvents()" might add "array" as a native return type declaration in the future. Do the same in implementation "App\EventSubscriber\RegisterEvent" now to avoid errors or add an explicit @return annotation to suppress this message.
-[28-May-2023 09:32:06 UTC] 2023-05-28T09:32:06+00:00 [critical] Uncaught Error: Undefined constant "App\EventSubscriber\onRegistrationSuccess"
