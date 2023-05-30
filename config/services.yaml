@@ -34,7 +34,6 @@ services:
 
   App\EventSubscriber\RegisterEventSubscriber:
     arguments:
-      $mailer: '@Symfony\Component\Mailer\MailerInterface'
       $emailVerifier: '@App\Security\EmailVerifier'
     tags:
       - { name: kernel.event_subscriber }
