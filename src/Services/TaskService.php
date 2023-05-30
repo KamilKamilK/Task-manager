@@ -6,6 +6,7 @@ namespace App\Services;
 use App\Entity\Task;
 use App\Repository\TaskRepository;
 use JetBrains\PhpStorm\NoReturn;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 
@@ -22,12 +23,7 @@ class TaskService
     public function getUserTasks($user): array
     {
         $userId = $user->getId();
-        $tasks = $this->taskRepository->findBy(['user' => $userId], ['createdAt' => 'DESC']);
-
-        if (empty($tasks)) {
-            throw new \NotFo();
-        }
-        return $tasks;
+        return $this->taskRepository->findBy(['user' => $userId], ['createdAt' => 'DESC']);
     }
 
     public function getFilteredTasks(UserInterface $user, $params): array

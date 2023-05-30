@@ -100,6 +100,7 @@ class TaskController extends AbstractController
     public function addTask(Request $request): Response|RedirectResponse
     {
         $user = $this->getUser();
+        $userTasks = $this->service->getUserTasks($user);
 
         $form = $this->createForm(AddTaskFormType::class);
         $form->handleRequest($request);
@@ -110,6 +111,7 @@ class TaskController extends AbstractController
             try {
                 $this->service->createNewTask($user, $params);
                 $this->addFlash('success', 'Task added successfully.');
+                $userTasks = $this->service->getUserTasks($user);
 
                 return $this->redirectToRoute('app_add_task');
             } catch (\Exception $e) {
@@ -119,7 +121,7 @@ class TaskController extends AbstractController
 
         $response = $this->render('tasks/addEditTask/addEditTask.html.twig', [
             'form' => $form->createView(),
-            'tasks' => $this->service->getUserTasks($user)
+            'tasks' => $userTasks
         ]);
 
         if ($form->isSubmitted() && !$form->isValid()) {

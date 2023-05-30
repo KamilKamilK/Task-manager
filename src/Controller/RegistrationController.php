@@ -56,14 +56,6 @@ class RegistrationController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
-
-//            $signatureComponents = $verifyEmailHelper->generateSignature(
-//                'app_verify_email',
-//                (string)$user->getId(),
-//                $user->getEmail(),
-//                ['id' => $user->getId()]
-//            );
-
             $signatureComponents = $this->emailVerifier->createSignatureComponents('app_verify_email', $user);
 
             $event = new UserRegisteredEvent($user);
