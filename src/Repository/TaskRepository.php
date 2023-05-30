@@ -50,7 +50,7 @@ class TaskRepository extends ServiceEntityRepository
         }
         if (!empty($details)) {
             $queryBuilder->andWhere('t.details LIKE :details')
-                ->setParameter('details','%'.$details.'%');
+                ->setParameter('details', '%' . $details . '%');
         }
 
         if (!empty($deadline)) {

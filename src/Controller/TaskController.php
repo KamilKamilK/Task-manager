@@ -87,9 +87,10 @@ class TaskController extends AbstractController
                         'email' => $task->getUser()->getEmail(),
                         'title' => $task->getTitle()
                     ]);
-                } catch (\Exception $e){
+                } catch (\Exception $e) {
                     return new JsonResponse(['error' => 'Something went wrong with updating the task.']);
-            }}
+                }
+            }
         }
 
         return new JsonResponse(['error' => 'Invalid data provided']);

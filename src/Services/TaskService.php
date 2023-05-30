@@ -6,7 +6,6 @@ namespace App\Services;
 use App\Entity\Task;
 use App\Repository\TaskRepository;
 use JetBrains\PhpStorm\NoReturn;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 

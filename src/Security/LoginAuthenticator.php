@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace App\Security;
 
 use App\Repository\UserRepository;
@@ -41,7 +42,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
         return new Passport(
-            new UserBadge($email, function ($userIdentifier){
+            new UserBadge($email, function ($userIdentifier) {
                 $user = $this->userRepository->findOneBy(['email' => $userIdentifier]);
 
                 if (!$user) {

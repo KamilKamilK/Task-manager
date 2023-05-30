@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace App\Factory;
 
 use App\Entity\User;
@@ -49,11 +50,11 @@ final class UserFactory extends ModelFactory
             'email' => self::faker()->email,
             'firstName' => self::faker()->firstName,
             'lastName' => self::faker()->lastName,
-            'plainPassword' =>'enter',
+            'plainPassword' => 'enter',
             'roles' => ["ROLE_USER"],
             'isVerified' => self::faker()->boolean(),
-            'createdAt'=> self::faker()->dateTimeBetween('-2 month', '-1 month'),
-            'updatedAt'=> self::faker()->dateTimeBetween('-1 month', '-1 day')
+            'createdAt' => self::faker()->dateTimeBetween('-2 month', '-1 month'),
+            'updatedAt' => self::faker()->dateTimeBetween('-1 month', '-1 day')
         ];
     }
 
@@ -63,15 +64,13 @@ final class UserFactory extends ModelFactory
     protected function initialize(): self
     {
         return $this
-             ->afterInstantiate(function(User $user)
-             {
-                 if ($user->getPlainPassword()) {
-                     $user->setPassword(
-                       $this->passwordHasher->hashPassword($user, $user->getPlainPassword())
-                     );
-                 }
-             })
-        ;
+            ->afterInstantiate(function (User $user) {
+                if ($user->getPlainPassword()) {
+                    $user->setPassword(
+                        $this->passwordHasher->hashPassword($user, $user->getPlainPassword())
+                    );
+                }
+            });
     }
 
     protected static function getClass(): string

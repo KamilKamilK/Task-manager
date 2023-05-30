@@ -19,6 +19,7 @@ class AppFixtures extends Fixture
 
         $this->userPasswordHasher = $userPasswordHasher;
     }
+
     public function load(ObjectManager $manager): void
     {
         $user = (new User())
@@ -29,7 +30,7 @@ class AppFixtures extends Fixture
         $hashedPassword = $this->userPasswordHasher->hashPassword($user, 'enter');
         $user->setPassword($hashedPassword);
 
-        TaskFactory::createMany(5, function () use($user) {
+        TaskFactory::createMany(5, function () use ($user) {
             return [
                 'user' => $user
             ];

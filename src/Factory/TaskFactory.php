@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace App\Factory;
 
 use App\Entity\Task;
@@ -41,16 +42,15 @@ final class TaskFactory extends ModelFactory
             'deadline' => self::faker()->dateTimeThisMonth('now'),
             'details' => self::faker()->text(255),
             'title' => self::faker()->word(),
-            'createdAt'=> self::faker()->dateTimeBetween('-1 month', '-1 day'),
-            'updatedAt'=> self::faker()->dateTimeBetween('-1 month', '-1 day')
+            'createdAt' => self::faker()->dateTimeBetween('-1 month', '-1 day'),
+            'updatedAt' => self::faker()->dateTimeBetween('-1 month', '-1 day')
         ];
     }
 
     protected function initialize(): self
     {
-        return $this
-            // ->afterInstantiate(function(Task $task): void {})
-        ;
+        return $this// ->afterInstantiate(function(Task $task): void {})
+            ;
     }
 
     protected static function getClass(): string

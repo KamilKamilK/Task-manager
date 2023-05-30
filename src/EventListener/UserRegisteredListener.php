@@ -15,6 +15,7 @@ class UserRegisteredListener
     {
         $this->logger = $authLogger;
     }
+
     public function onRegistrationSuccess(UserRegisteredEvent $event): bool
     {
         $this->logger->info(sprintf('[NEW USER] New user was registered! User email: %s', $event->getUser()->getEmail()));

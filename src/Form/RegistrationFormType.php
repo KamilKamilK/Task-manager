@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\User;
@@ -42,8 +43,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
