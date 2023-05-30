@@ -1,0 +1,22 @@
+FROM php:8.0-fpm
+
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    zlibig-dev \
+    libxml2-dev \
+    libzip-dev \
+    && docker-php-ext-install \
+    zip \
+    intl \
+    pdo pdo_mysql
+
+RUN #curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN #curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php composer-setup.php --version=2.1.6 --install-dir=/usr/local/bin --filename=composer \
+    && php -r "unlink('composer-setup.php');"
+#COPY project/ /var/www/project
+RUN composer global require symfony/cli
+ENV PATH="/root/.composer/vendor/bin:${PATH}"
+WORKDIR /var/www/project/
