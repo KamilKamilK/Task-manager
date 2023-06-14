@@ -30,8 +30,6 @@ This command will initiate MqSQL database and Mailer service.
 Next commands will create tables in database and populate then with fake values.
 
 ```
-symfony console doctrine:database:create  
-symfony console doctrine:migrations:migrate
 symfony console doctrine:fixtures:load
 ```
 
