@@ -7,6 +7,7 @@
         <tr>
             <th>Title</th>
             <th>Details</th>
+            <th>Tools [quantity]</th>
             <th>Deadline</th>
             <th>Completed</th>
         </tr>
@@ -15,6 +16,11 @@
             <tr>
                 <td>{{ task.title }}</td>
                 <td data-id="{{ task.id }}" class="td-detail">{{ task.details }}</td>
+                <td style="width: 10%">
+                    {% for tool in task.tools %}
+                        {{ tool.name }}  [{{ tool.quantity }}]
+                    {% endfor %}
+                </td>
                 <td>{{ task.deadline|date('d.m.Y') }}</td>
                 <td data-id="{{ task.id }}"
                     class="{{ task.completed ? 'green-completed' : 'red-completed' }}">

@@ -12,13 +12,6 @@ and then run:
 composer install
 ```
 
-**Setup the Server**
-In command line paste command :
-
-```
-symfony serve -d
-```
-
 **Setup the Database**
 Application is setup on Docker containers
 In command line paste command :
@@ -33,7 +26,14 @@ Next commands will create tables in database and populate then with fake values.
 symfony console doctrine:fixtures:load
 ```
 
-**Now check out the site at `https://localhost:8000`**
+**Setup the Server**
+In command line paste command :
+
+```
+symfony serve -d
+```
+
+**Now check out the site at `https://localhost:8001`**
 
 Now you need to register new client account or use account created as example. 
 

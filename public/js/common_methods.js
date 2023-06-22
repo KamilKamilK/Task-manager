@@ -1,4 +1,4 @@
-const URL = 'http://127.0.0.1:8000';
+const URL = `http://${window.location.host}`;
 
 let taskList;
 let acceptBtnBtn;
@@ -36,12 +36,15 @@ const createTableHead = taskList => {
     title.textContent = 'Title';
     const details = document.createElement('th');
     details.textContent = 'Details';
+    const tools = document.createElement('th');
+    tools.textContent = 'Tools[quantity]';
     const deadline = document.createElement('th');
     deadline.textContent = 'Deadline';
     const completed = document.createElement('th');
     completed.textContent = 'Completed';
 
-    tr.append(title, details, deadline, completed);
+
+    tr.append(title, details,tools, deadline, completed);
     taskList.append(tr);
 };
 
@@ -65,6 +68,26 @@ const createTableBody = (taskList, tasks, includeEditClass) => {
             details.classList.add('td-detail');
         }
 
+        const tools = document.createElement('td');
+        const ul = document.createElement('ul');
+        console.log(task.tools)
+
+        const decodeTools = JSON.parse(task.tools);
+        console.log(decodeTools)
+        console.log(decodeTools !== [], decodeTools.length)
+        if (decodeTools.length > 0) {
+            console.log('halo')
+            decodeTools.forEach(tool => {
+
+                console.log(tool)
+                const li = document.createElement('li')
+                li.textContent = tool.name + '[' + tool.quantity + ']'
+                ul.appendChild(li);
+            });
+            tools.appendChild(ul)
+        }
+
+
         const deadline = document.createElement('td');
         deadline.textContent = task.deadline.replace(/-/g, '.');
         if (includeEditClass) {
@@ -78,7 +101,7 @@ const createTableBody = (taskList, tasks, includeEditClass) => {
         completed.classList.add(task.completed ? 'green-completed' : 'red-completed');
         completed.dataset.id = task.id;
 
-        tr.append(title, details, deadline, completed);
+        tr.append(title, details,tools, deadline, completed);
         taskList.append(tr);
     });
 };
@@ -158,7 +181,7 @@ const popupEdit = e => {
 
 const close = () => {
     popup.style.display = 'none';
-    popupInfo.textContent = ' '
+    popupInfo.textContent = '';
 }
 
 const showMessage = (message, info) => {

@@ -47,17 +47,34 @@ class TaskService
         $serializedArr = [];
 
         foreach ($tasks as $task) {
+
+            $tools = $this->serializeTools($task->getTools()->toArray());
             $taskData = [
                 'id' => $task->getId(),
                 'title' => $task->getTitle(),
                 'details' => $task->getDetails(),
                 'deadline' => $task->getDeadline()->format('d-m-Y'),
                 'completed' => $task->isCompleted(),
+                'tools' => $tools
             ];
 
             $serializedArr[] = $taskData;
         }
         return $serializedArr;
+    }
+
+    public function serializeTools($tools): bool|string
+    {
+        $toolsArr = [];
+        foreach ($tools as $tool) {
+            $toolsArr[] = [
+                'name' => $tool->getName(),
+                'quantity' => $tool->getQuantity()
+            ];
+        }
+
+        $jsonOptions = JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION;
+        return json_encode($toolsArr, $jsonOptions);
     }
 
     #[NoReturn] public function updateTask(string $taskId, array $params): Task

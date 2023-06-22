@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use App\Factory\TaskFactory;
+use App\Factory\ToolsFactory;
 use App\Factory\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -37,10 +38,12 @@ class AppFixtures extends Fixture
         });
 
         UserFactory::createMany(10);
+        ToolsFactory::createMany(10);
 
         TaskFactory::createMany(100, function () {
             return [
-                'user' => UserFactory::random()
+                'user' => UserFactory::random(),
+                'tools' =>[ToolsFactory::random()]
             ];
         });
 

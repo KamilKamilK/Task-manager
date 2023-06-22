@@ -39,6 +39,8 @@ class TaskController extends AbstractController
             throw $this->createNotFoundException();
         }
 
+
+
         return $this->render('tasks/searchList/index.html.twig', [
             'tasks' => $userTasks,
             'form' => $form->createView()

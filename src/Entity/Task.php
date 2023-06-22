@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\TaskRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -32,6 +34,14 @@ class Task
 
     #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'task_id')]
     private ?User $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'task', targetEntity: Tools::class)]
+    private Collection $tools;
+
+    public function __construct()
+    {
+        $this->tools = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -94,6 +104,33 @@ class Task
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTools(): Collection
+    {
+        return $this->tools;
+    }
+
+    public function addTool(Tools $tool): self
+    {
+        if (!$this->tools->contains($tool)) {
+            $this->tools->add($tool);
+            $tool->setTask($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTool(Tools $tool): self
+    {
+        if ($this->tools->removeElement($tool)) {
+            // set the owning side to null (unless already changed)
+            if ($tool->getTask() === $this) {
+                $tool->setTask(null);
+            }
+        }
 
         return $this;
     }
