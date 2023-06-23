@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
@@ -35,6 +35,14 @@ class AddTaskFormType extends AbstractType
                         'autocomplete' => 'off'
                     ]
                 ])
+            ->add('tools', CollectionType::class, [
+                'entry_type' => ToolsFormType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'by_reference' => false,
+            ])
             ->add('deadline', DateType::class,
                 ['label' => 'Task deadline',
                     'required' => false,
@@ -46,9 +54,7 @@ class AddTaskFormType extends AbstractType
                     'constraints' => [
                         new Assert\GreaterThanOrEqual('now')
                     ]
-                ])
-            ->add('submit', SubmitType::class,
-                ['label' => 'Add task']);
+                ]);
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $form = $event->getForm();

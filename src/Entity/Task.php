@@ -35,7 +35,7 @@ class Task
     #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'task_id')]
     private ?User $user = null;
 
-    #[ORM\OneToMany(mappedBy: 'task', targetEntity: Tools::class)]
+    #[ORM\OneToMany(mappedBy: 'task', targetEntity: Tool::class)]
     private Collection $tools;
 
     public function __construct()
@@ -113,7 +113,7 @@ class Task
         return $this->tools;
     }
 
-    public function addTool(Tools $tool): self
+    public function addTool(Tool $tool): self
     {
         if (!$this->tools->contains($tool)) {
             $this->tools->add($tool);
@@ -123,7 +123,7 @@ class Task
         return $this;
     }
 
-    public function removeTool(Tools $tool): self
+    public function removeTool(Tool $tool): self
     {
         if ($this->tools->removeElement($tool)) {
             // set the owning side to null (unless already changed)

@@ -2,30 +2,30 @@
 
 namespace App\Factory;
 
-use App\Entity\Tools;
-use App\Repository\ToolsRepository;
+use App\Entity\Tool;
+use App\Repository\ToolRepository;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
 
 /**
- * @extends ModelFactory<Tools>
+ * @extends ModelFactory<Tool>
  *
- * @method        Tools|Proxy create(array|callable $attributes = [])
- * @method static Tools|Proxy createOne(array $attributes = [])
- * @method static Tools|Proxy find(object|array|mixed $criteria)
- * @method static Tools|Proxy findOrCreate(array $attributes)
- * @method static Tools|Proxy first(string $sortedField = 'id')
- * @method static Tools|Proxy last(string $sortedField = 'id')
- * @method static Tools|Proxy random(array $attributes = [])
- * @method static Tools|Proxy randomOrCreate(array $attributes = [])
- * @method static ToolsRepository|RepositoryProxy repository()
- * @method static Tools[]|Proxy[] all()
- * @method static Tools[]|Proxy[] createMany(int $number, array|callable $attributes = [])
- * @method static Tools[]|Proxy[] createSequence(iterable|callable $sequence)
- * @method static Tools[]|Proxy[] findBy(array $attributes)
- * @method static Tools[]|Proxy[] randomRange(int $min, int $max, array $attributes = [])
- * @method static Tools[]|Proxy[] randomSet(int $number, array $attributes = [])
+ * @method        Tool|Proxy create(array|callable $attributes = [])
+ * @method static Tool|Proxy createOne(array $attributes = [])
+ * @method static Tool|Proxy find(object|array|mixed $criteria)
+ * @method static Tool|Proxy findOrCreate(array $attributes)
+ * @method static Tool|Proxy first(string $sortedField = 'id')
+ * @method static Tool|Proxy last(string $sortedField = 'id')
+ * @method static Tool|Proxy random(array $attributes = [])
+ * @method static Tool|Proxy randomOrCreate(array $attributes = [])
+ * @method static ToolRepository|RepositoryProxy repository()
+ * @method static Tool[]|Proxy[] all()
+ * @method static Tool[]|Proxy[] createMany(int $number, array|callable $attributes = [])
+ * @method static Tool[]|Proxy[] createSequence(iterable|callable $sequence)
+ * @method static Tool[]|Proxy[] findBy(array $attributes)
+ * @method static Tool[]|Proxy[] randomRange(int $min, int $max, array $attributes = [])
+ * @method static Tool[]|Proxy[] randomSet(int $number, array $attributes = [])
  */
 final class ToolsFactory extends ModelFactory
 {
@@ -66,6 +66,6 @@ final class ToolsFactory extends ModelFactory
 
     protected static function getClass(): string
     {
-        return Tools::class;
+        return Tool::class;
     }
 }

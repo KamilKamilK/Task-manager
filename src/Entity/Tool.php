@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ToolsRepository;
+use App\Repository\ToolRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ToolsRepository::class)]
-class Tools
+#[ORM\Entity(repositoryClass: ToolRepository::class)]
+class Tool
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

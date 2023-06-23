@@ -1,3 +1,17 @@
+{% import _self as formMacros %}
+
+{% macro printToolRow(toolsForm) %}
+    <div class="col-xs-4 js-tool-item">
+
+        <button class="btn btn-danger btn-sm js-remove-tool">- Remove Tool</button>
+
+        {{ form_errors(toolsForm) }}
+
+        {{ form_row(toolsForm.name) }}
+        {{ form_row(toolsForm.quantity) }}
+    </div>
+{% endmacro %}
+
 {{ form_start(form, {'attr': {'id': 'add_task'}}) }}
     {{ form_row(form.title) }}
 
@@ -5,5 +19,19 @@
 
     {{ form_row(form.deadline) }}
 
-    {{ form_row(form.submit) }}
+    <div class="row js-tools-wrapper"
+         data-prototype="{{ formMacros.printToolRow(form.tools.vars.prototype)|e('html_attr') }}"
+         data-index="{{ form.tools|length }}">
+
+        {% for toolForm in form.tools %}
+            <h1>{{ toolForm.vars.value }}</h1>
+            {{ formMacros.printToolRow(toolForm) }}
+        {% endfor %}
+
+        <div class="text-center">
+            <button class="btn btn-success btn-sm js-tool-add">+ Add Tool</button>
+        </div>
+    </div>
+
+<button type="submit" class="btn btn-primary" formnovalidate>Add Task</button>
 {{ form_end(form) }}

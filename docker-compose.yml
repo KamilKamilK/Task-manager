@@ -28,9 +28,9 @@ services:
       MYSQL_DATABASE: ${DB_NAME}
     ports:
       - "3306:3306"
-#    command: "mysqld --default-authentication-plugin=mysql_native_password --init-file /data/application/init.sql"
-#    volumes:
-#      - ./config/sql/init.sql:/data/application/init.sql
+    command: "mysqld --default-authentication-plugin=mysql_native_password --init-file /data/application/init.sql"
+    volumes:
+      - ./config/sql/init.sql:/data/application/init.sql
     networks:
       - internal
 

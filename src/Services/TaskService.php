@@ -4,7 +4,10 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Entity\Task;
+use App\Entity\Tool;
 use App\Repository\TaskRepository;
+use App\Repository\ToolRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\NoReturn;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -12,11 +15,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class TaskService
 {
     private TaskRepository $taskRepository;
+    private ToolRepository $toolRepository;
+    private EntityManagerInterface $entityManager;
 
 
-    public function __construct(TaskRepository $taskRepository)
+    public function __construct(TaskRepository $taskRepository, ToolRepository $toolRepository, EntityManagerInterface $entityManager)
     {
         $this->taskRepository = $taskRepository;
+        $this->toolRepository = $toolRepository;
+        $this->entityManager = $entityManager;
     }
 
     public function getUserTasks($user): array
@@ -24,6 +31,7 @@ class TaskService
         $userId = $user->getId();
         return $this->taskRepository->findBy(['user' => $userId], ['createdAt' => 'DESC']);
     }
+
 
     public function getFilteredTasks(UserInterface $user, $params): array
     {
@@ -108,7 +116,7 @@ class TaskService
         return $task;
     }
 
-    public function createNewTask($user, array $params): void
+    public function createNewTask($user, array $params): Task
     {
         $task = (new Task())
             ->setUser($user)
@@ -119,7 +127,43 @@ class TaskService
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime());
 
+
         $this->taskRepository->save($task, true);
+        return $task;
+    }
+
+    public function createNewTool($tool, $task): void
+    {
+        $tool = (new Tool())
+            ->setName($tool->getName())
+            ->setQuantity($tool->getQuantity())
+            ->setTask($task);
+
+        $existingTool = $this->checkIfToolExist($tool);
+
+        if ($existingTool) {
+            $this->updateToolQuantity($existingTool);
+        }
+
+        $this->toolRepository->save($tool, true);
+    }
+
+    public function checkIfToolExist(Tool $tool): ?Tool
+    {
+        return $this->toolRepository->findOneBy(['name' => $tool->getName()]);
+    }
+
+    public function updateToolQuantity(Tool $tool): void
+    {
+        $existingTool = $this->toolRepository->findOneBy(['name' => $tool->getName()]);
+
+        $quantity = $tool->getQuantity();
+        $existingToolQuantity = $existingTool->getQuantity();
+
+        $sum = strval($quantity + $existingToolQuantity);
+        $existingTool->setQuantity($sum);
+
+        $this->entityManager->persist($existingTool);
     }
 
     #[NoReturn] public function deleteTask($taskId): void

@@ -40,7 +40,6 @@ class TaskController extends AbstractController
         }
 
 
-
         return $this->render('tasks/searchList/index.html.twig', [
             'tasks' => $userTasks,
             'form' => $form->createView()
@@ -112,7 +111,17 @@ class TaskController extends AbstractController
             $params = $form->getData();
 
             try {
-                $this->service->createNewTask($user, $params);
+                $task = $this->service->createNewTask($user, $params);
+
+//                dd($params['tools']);
+                if (($params['tools']) !== null){
+//                if (!empty($params['tools'])){
+
+                    foreach ($params['tools'] as $tool){
+                        $this->service->createNewTool($tool, $task);
+                    }
+                }
+
                 $this->addFlash('success', 'Task added successfully.');
                 $userTasks = $this->service->getUserTasks($user);
 
